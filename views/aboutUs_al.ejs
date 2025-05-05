@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Restaurant</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .dropbtn {
+            background-color: #000;
+            color: #D4AF37;
+            border: none;
+            cursor: pointer;
+            margin: 8px; 
+        }
+        
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+        
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #000;
+          min-width: 160px;
+          overflow: auto;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+        
+        .dropdown-content a {
+          color: #D4AF37;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+        .show {display: block;}
+        .about-section {
+    padding: 4rem 0;
+    background-color: #f8f9fa;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.about-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about-image img {
+    transition: transform 0.3s ease;
+}
+
+.about-image:hover img {
+    transform: scale(1.05);
+}
+
+.team-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 480px;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+}
+
+.team-image {
+    height: 250px;
+    overflow: hidden;
+}
+
+.team-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-info {
+    padding: 1.5rem;
+}
+
+.team-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.team-info .position {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.contact-info {
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-item {
+    margin-bottom: 2rem;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.info-item p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.map-container {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .team-image {
+        height: 200px;
+    }
+}
+        </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/al">
+                <img src="/logo.jpg" alt="" height="80px">
+              </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/al">Ballina</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/al/reservations">Rezervime</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/al/about">Per ne</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/login">Kycu</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn" style="display: block;">Gjuha</button>
+                                <div id="myDropdown" class="dropdown-content">
+                                    <a href="/al" style="display: block;">Shqip</a>
+                                    <a href="/" style="display: block;">English</a>
+                                </div>
+                          </div>
+                          
+                        
+                    </li> 
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1>Per ne</h1>
+            <p>Historia jonë, ekipi ynë dhe pasioni ynë për ushqimin</p>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6">
+                    <h2 class="section-title">Historia jone</h2>
+                    <p class="lead" style="color: black;">I themeluar në vitin 2010, restoranti ynë ka shërbyer kuzhinë të jashtëzakonshme dhe ka krijuar përvoja të paharrueshme për më shumë se një dekadë.</p>
+                    <p style="color: black;">Ne besojmë në përdorimin vetëm të përbërësve më të mirë, të siguruar nga prodhuesit vendas sa herë që është e mundur. Shefat tanë të kuzhinës kombinojnë teknikat tradicionale me inovacionin modern për të krijuar pjata që të kënaqin dhe të frymëzojnë.</p>
+                    <p style="color: black;">Angazhimi ynë ndaj cilësisë dhe shërbimit na ka sjellë çmime dhe njohje të shumta në botën e kuzhinës. Ne krenohemi që jemi pjesë e komunitetit tonë lokal dhe që kontribuojmë në kulturën e tij të gjallë të ushqimit.</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-image">
+                        <img src="https://i.pinimg.com/736x/7e/64/cb/7e64cbb5f9f45b2dd42dfcf83eb516c9.jpg" alt="Restaurant Interior" class="img-fluid rounded shadow">
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section" style="padding-top: 2rem;">
+                <h2 class="section-title text-center mb-5">Takoni Ekipin Tonë</h2>
+                <div class="row" style="padding-top: 2rem;">
+                    <div class="col-md-4 mb-4">
+                        <div class="team-card">
+                            <div class="team-image">
+                                <img src="https://i.pinimg.com/474x/ec/5d/43/ec5d43058b0122a499bfa6f99f6f2eb4.jpg" alt="Head Chef John Smith" class="img-fluid">
+                            </div>
+                            <div class="team-info">
+                                <h3>John Smith</h3>
+                                <p class="position">Head Chef</p>
+                                <p style="color: black;">Me mbi 20 vjet përvojë në kuzhinë, Shefi John sjell kreativitet dhe ekspertizë në çdo pjatë.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="team-card">
+                            <div class="team-image">
+                                <img src="https://i.pinimg.com/736x/50/31/ab/5031ab7be5d551beb79b16fd76a8e757.jpg" alt="Restaurant Manager Sarah Johnson" class="img-fluid">
+                            </div>
+                            <div class="team-info">
+                                <h3>Sarah Johnson</h3>
+                                <p class="position">Restaurant Manager</p>
+                                <p style="color: black;">Sara sigurohet që çdo mysafir të marrë shërbim të jashtëzakonshëm dhe të largohet me një buzëqeshje.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="team-card">
+                            <div class="team-image">
+                                <img src="https://i.pinimg.com/474x/d8/34/71/d83471d9fed9383b593f45eef74c52a8.jpg" alt="Sommelier Michael Brown" class="img-fluid">
+                            </div>
+                            <div class="team-info">
+                                <h3>Michael Brown</h3>
+                                <p class="position">Sommelier</p>
+                                <p style="color: black;">Eksperti ynë i verës, Michael, i ndihmon mysafirët të gjejnë kombinimin perfekt për vaktin e tyre.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-section">
+                <h2 class="section-title text-center mb-5">Vendndodhja & Kontakti</h2>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="contact-info">
+                            <div class="info-item">
+                                <h3>Adresa</h3>
+                                <p>
+                                    Nënë Tereza,<br>
+                                    Prishtina 10000<br>
+                                    Kosova
+                                </p>
+                            </div>
+                            <div class="info-item">
+                                <h3>Si te na kontaktoni?</h3>
+                                <p>
+                                    <i class="fas fa-phone"></i> +383 48 888 460<br>
+                                    <i class="fas fa-envelope"></i> info@restaurant.com
+                                </p>
+                            </div>
+                            <div class="info-item">
+                                <h3>Orari i punes</h3>
+                                <p>
+                                    <strong>E hene - E shtune:</strong> 7am - 10pm<br>
+                                    <strong>E diel:</strong> Mbyllur
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="map-container">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4150.449822912363!2d21.112169551402545!3d42.64416199484599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13549fe71a794ed7%3A0x3a08b58bfa2a167!2sN&#39;pik%C3%ABM%20Restaurant!5e0!3m2!1sen!2s!4v1745448281432!5m2!1sen!2s"
+                                width="100%"
+                                height="452"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        // Initialize socket connection
+        window.socket = io();
+        
+        // Debug socket connection
+        window.socket.on('connect', () => {
+            console.log('Connected to socket server');
+        });
+
+        window.socket.on('disconnect', () => {
+            console.log('Disconnected from socket server');
+        });
+
+        window.socket.on('error', (error) => {
+            console.error('Socket error:', error);
+        });
+    </script>
+    <script src="/js/main.js"></script>
+    <script>
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                document.querySelector('.navbar').classList.add('scrolled');
+            } else {
+                document.querySelector('.navbar').classList.remove('scrolled');
+            }
+        });
+    </script>
+    <script>
+        function switchLanguage(targetLang) {
+            const currentPath = window.location.pathname;
+            const isAlbanian = currentPath.startsWith('/al');
+    
+            let newPath;
+    
+            if (targetLang === 'en' && isAlbanian) {
+                // Remove "/al" from the path
+                newPath = currentPath.replace(/^\/al/, '') || '/';
+            } else if (targetLang === 'al' && !isAlbanian) {
+                // Prefix "/al" to the path
+                newPath = '/al' + currentPath;
+            } else {
+                newPath = currentPath;
+            }
+    
+            window.location.href = newPath;
+        }
+    </script>
+    <script>
+        function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+    </script>
+    </body>
+    </html>
+<%- include('partials/footer') %> 
