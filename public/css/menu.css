@@ -1,0 +1,134 @@
+/* Menu Section */
+.menu-section {
+    padding: 6rem 0;
+    background-color: var(--secondary-color);
+    position: relative;
+}
+
+.menu-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-color), transparent);
+}
+
+.menu-item {
+    margin-bottom: 4rem;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s ease forwards;
+    background-color: var(--secondary-color);
+    padding: 2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.menu-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.menu-item:hover::before {
+    transform: translateX(100%);
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item:nth-child(1) { animation-delay: 0.1s; }
+.menu-item:nth-child(2) { animation-delay: 0.2s; }
+.menu-item:nth-child(3) { animation-delay: 0.3s; }
+.menu-item:nth-child(4) { animation-delay: 0.4s; }
+
+.menu-item h3 {
+    font-size: 1.8rem;
+    letter-spacing: 0.5px;
+    margin: 1.5rem 0 0.5rem;
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+}
+
+.menu-item h3::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.menu-item:hover h3::after {
+    width: 100%;
+}
+
+.menu-item .price {
+    font-family: var(--font-family);
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.menu-item p {
+    color: var(--light-text);
+    font-size: 1.1rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+.menu-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.menu-item:hover img {
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .menu-section {
+        padding: 4rem 0;
+    }
+    
+    .menu-item {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .menu-item h3 {
+        font-size: 1.5rem;
+    }
+    
+    .menu-item .price {
+        font-size: 1.2rem;
+    }
+    
+    .menu-item p {
+        font-size: 1rem;
+    }
+
+    .menu-item img {
+        height: 200px;
+    }
+} 
