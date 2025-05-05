@@ -1,0 +1,168 @@
+<%- include('layout', { title: 'Login' }) %>
+
+<main>
+    <section class="login-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="login-card">
+                        <h2 class="text-center mb-4">Login</h2>
+                        <form id="loginForm" action="/auth/login" method="POST">
+                            <div class="mb-4">
+                                <label for="userType" class="form-label">User Type</label>
+                                <select class="form-select" id="userType" name="userType" required>
+                                    <option value="">Select user type</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="manager">Manager</option>
+                                    <option value="host">Hoster</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<style>
+.login-section {
+    padding: 10rem 0;
+    min-height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    background-color: var(--secondary-color);
+}
+
+.login-card {
+    padding: 2.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--accent-color);
+    background-color: var(--primary-color);
+}
+
+.login-card h2 {
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+}
+
+.form-label {
+    color: var(--accent-color);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.form-control {
+    background-color: var(--primary-color);
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    border-radius: 4px;
+    padding: 0.8rem;
+}
+
+.form-control:focus {
+    background-color: var(--primary-color);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+}
+
+.form-control::placeholder {
+    color: rgba(212, 175, 55, 0.5);
+}
+
+.form-select {
+    background-color: var(--primary-color);
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    border-radius: 4px;
+    padding: 0.8rem;
+}
+
+.form-select:focus {
+    background-color: var(--primary-color);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    border: none;
+    color: var(--primary-color);
+    padding: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .login-section {
+        padding: 2rem 0;
+    }
+    
+    .login-card {
+        padding: 1.5rem;
+    }
+    
+    .login-card h2 {
+        font-size: 2rem;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('loginForm');
+    const userTypeSelect = document.getElementById('userType');
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const userType = userTypeSelect.value;
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (!userType || !username || !email || !password) {
+            alert('Please fill in all fields!');
+            return;
+        }
+
+        // Add loading state
+        const submitButton = form.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...';
+
+        // Submit the form
+        form.submit();
+    });
+});
+</script>

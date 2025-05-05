@@ -1,0 +1,189 @@
+<%- include('layout', { title: 'Reservations' }) %>
+
+<main>
+  <div class="container mt-5">
+    <div class="row justify-content-center" style="color: black; padding-top: 6.5rem;">
+      <div class="col-lg-8 text-center mb-5">
+        <h1 class="section-title">Make a Reservation</h1>
+        <p class="section-subtitle" style="color: black;">Book your table for an unforgettable dining experience</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6" style="color: black;">
+        <div class="reservation-info" style="color: black; border: 2px solid #D4AF37; padding: 1.5rem; border-radius: 0.5rem;">
+          <h3>Reservation Details</h3>
+          <ul class="info-list">
+            <li><i class="fas fa-clock"></i> <strong>Hours:</strong> Monday - Sunday, 6:00 PM - 10:00 PM</li>
+            <li><i class="fas fa-users"></i> <strong>Party Size:</strong> Up to 8 guests per table</li>
+            <li><i class="fas fa-calendar-check"></i> <strong>Advance Booking:</strong> Up to 30 days in advance</li>
+          </ul>
+          <div class="special-requests">
+            <h4>Special Requests</h4>
+            <p>For parties larger than 8, private dining, or special occasions, please contact us directly.</p>
+            <a href="tel:+1234567890" class="btn btn-outline-primary">
+              <i class="fas fa-phone"></i> Call Us
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="reservation-form" style="color: black;">
+          <form id="reservationForm">
+            <div class="mb-4">
+              <label for="customerName" class="form-label">Full Name</label>
+              <input style="color: black" type="text" class="form-control" id="customerName" name="customerName" required>
+            </div>
+            <div class="mb-4">
+              <label for="email" class="form-label">Email</label>
+              <input style="color: black" type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-4">
+              <label for="phoneNumber" class="form-label">Phone Number</label>
+              <input style="color: black" type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+            </div>
+            <div class="mb-4">
+              <label for="date" class="form-label">Date</label>
+              <input style="color: black" type="date" class="form-control" id="date" name="date" required min="<%= new Date().toISOString().split('T')[0] %>">
+            </div>
+            <div class="mb-4">
+              <label for="time" class="form-label">Start Time</label>
+              <select style="color: black" class="form-select" id="time" name="time" required>
+                <option value="">Select a time</option>
+                <option value="18:00">6:00 PM</option>
+                <option value="18:30">6:30 PM</option>
+                <option value="19:00">7:00 PM</option>
+                <option value="19:30">7:30 PM</option>
+                <option value="20:00">8:00 PM</option>
+                <option value="20:30">8:30 PM</option>
+                <option value="21:00">9:00 PM</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="duration" class="form-label">Duration (hours)</label>
+              <select style="color: black" class="form-select" id="duration" name="duration" required>
+                <option value="">Select duration</option>
+                <option value="1">1 hour</option>
+                <option value="1.5">1.5 hours</option>
+                <option value="2">2 hours</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="guests" class="form-label">Number of Guests</label>
+              <select style="color: black" class="form-select" id="guests" name="guests" required>
+                <option value="">Select number of guests</option>
+                <% for (let i = 1; i <= 8; i++) { %>
+                  <option value="<%= i %>"><%= i %> <%= i === 1 ? 'person' : 'people' %></option>
+                <% } %>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="specialRequests" class="form-label">Special Requests (optional)</label>
+              <textarea style="color: black" class="form-control" id="specialRequests" name="specialRequests" rows="3"></textarea>
+            </div>
+            <div class="mb-4">
+              <label class="form-label">Select a Table</label>
+              <div id="tablesContainer" class="tables-container restaurant-layout"></div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Confirm Reservation</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  document.getElementById('date').addEventListener('change', updateTableAvailability);
+  document.getElementById('time').addEventListener('change', updateTableAvailability);
+  document.getElementById('duration').addEventListener('change', updateTableAvailability);
+
+  async function updateTableAvailability() {
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+    const duration = document.getElementById('duration').value;
+    const container = document.getElementById('tablesContainer');
+
+    if (!date || !time || !duration) {
+      container.innerHTML = '';
+      return;
+    }
+
+    try {
+      const res = await fetch(`/reservations/tables/availability?date=${date}&time=${time}&duration=${duration}`);
+      const tables = await res.json();
+      container.innerHTML = '';
+
+      tables.forEach(table => {
+        const div = document.createElement('div');
+        div.classList.add('table');
+        div.dataset.tableNumber = table.tableNumber;
+        div.textContent = `Table ${table.tableNumber}`;
+        div.style.margin = '10px';
+        div.style.padding = '15px';
+        div.style.borderRadius = '8px';
+        div.style.textAlign = 'center';
+        div.style.cursor = 'pointer';
+
+        if (table.status === 'booked') {
+          div.classList.add('booked');
+          div.style.backgroundColor = '#777';
+          div.style.color = 'white';
+          div.style.pointerEvents = 'none';
+        } else {
+          div.classList.add('available');
+          div.style.backgroundColor = '#90ee90';
+          div.style.border = '1px solid black';
+          div.addEventListener('click', () => {
+            document.querySelectorAll('.table').forEach(t => {
+              t.classList.remove('selected');
+              t.style.border = '1px solid black';
+            });
+            div.classList.add('selected');
+            div.style.border = '3px solid gold';
+          });
+        }
+
+        container.appendChild(div);
+      });
+    } catch (err) {
+      console.error('Failed to fetch availability:', err);
+    }
+  }
+</script>
+
+<script>
+  document.getElementById('reservationForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const data = {
+      customerName: document.getElementById('customerName').value,
+      email: document.getElementById('email').value,
+      phoneNumber: document.getElementById('phoneNumber').value,
+      date: document.getElementById('date').value,
+      time: document.getElementById('time').value,
+      duration: document.getElementById('duration').value,
+      guests: document.getElementById('guests').value,
+      specialRequests: document.getElementById('specialRequests').value,
+      tableNumber: parseInt(document.querySelector('.table.selected')?.dataset.tableNumber)
+    };
+
+    try {
+      const res = await fetch('/reservations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        alert('✅ Reservation confirmed!');
+        window.location.reload();
+      } else {
+        alert(`❌ Error: ${result.message}`);
+      }
+    } catch (err) {
+      console.error('Reservation submission failed:', err);
+      alert('❌ Failed to submit reservation');
+    }
+  });
+</script>

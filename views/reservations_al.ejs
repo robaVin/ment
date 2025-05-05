@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Restaurant</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .dropbtn {
+            background-color: #000;
+            color: #D4AF37;
+            border: none;
+            cursor: pointer;
+            margin: 8px; 
+        }
+        
+        .dropdown {
+          position: relative;
+          display: inline-block;
+        }
+        
+        .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: #000;
+          min-width: 160px;
+          overflow: auto;
+          box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+          z-index: 1;
+        }
+        
+        .dropdown-content a {
+          color: #D4AF37;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+        }
+        .show {display: block;}
+        </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" style="margin-top: -50px;">
+        <div class="container">
+            <a class="navbar-brand" href="/al">
+                <img src="/logo.jpg" alt="" height="80px">
+              </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/al">Ballina</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/menu">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/al/reservations">Rezervime</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/al/about">Per ne</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auth/login">Kycu</a>
+                    </li>
+                    <li class="nav-item">
+                        <div class="dropdown">
+                            <button onclick="myFunction()" class="dropbtn" style="display: block;">Gjuha</button>
+                                <div id="myDropdown" class="dropdown-content">
+                                    <a href="/al" style="display: block;">Shqip</a>
+                                    <a href="/" style="display: block;">English</a>
+                                </div>
+                          </div>
+                          
+                        
+                    </li> 
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+<main>
+  <div class="container mt-5">
+    <div class="row justify-content-center" style="color: black; padding-top: 6.5rem;">
+      <div class="col-lg-8 text-center mb-5">
+        <h1 class="section-title">Bëni një rezervim</h1>
+        <p class="section-subtitle" style="color: black;">Rezervoni tavolinën tuaj për një përvojë të paharrueshme ngrënieje</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6" style="color: black;">
+        <div class="reservation-info" style="color: black; border: 2px solid #D4AF37; padding: 1.5rem; border-radius: 0.5rem;">
+          <h3>Detajet e rezervimit</h3>
+          <ul class="info-list">
+            <li><i class="fas fa-clock"></i> <strong>Orari:</strong> E hene - E diel, 6:00 PM - 10:00 PM</li>
+            <li><i class="fas fa-users"></i> <strong>Madhësia e grupit:</strong> Deri ne 8 mysafire per tavoline</li>
+            <li><i class="fas fa-calendar-check"></i> <strong>Rezervim paraprak:</strong> Deri 30 dite paraprakisht</li>
+          </ul>
+          <div class="special-requests">
+            <h4>Kerkesa speciale</h4>
+            <p>Për grupe më të mëdha se 8 persona, darka private ose raste të veçanta, ju lutemi na kontaktoni direkt.</p>
+            <a href="tel:+1234567890" class="btn btn-outline-primary">
+              <i class="fas fa-phone"></i> Na telefononi
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="reservation-form" style="color: black;">
+          <form id="reservationForm">
+            <div class="mb-4">
+              <label for="customerName" class="form-label">Emri dhe mbiemri</label>
+              <input style="color: black" type="text" class="form-control" id="customerName" name="customerName" required>
+            </div>
+            <div class="mb-4">
+              <label for="email" class="form-label">Email</label>
+              <input style="color: black" type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-4">
+              <label for="phoneNumber" class="form-label">Numri i telefonit</label>
+              <input style="color: black" type="tel" class="form-control" id="phoneNumber" name="phoneNumber" required>
+            </div>
+            <div class="mb-4">
+              <label for="date" class="form-label">Data</label>
+              <input style="color: black" type="date" class="form-control" id="date" name="date" required min="<%= new Date().toISOString().split('T')[0] %>">
+            </div>
+            <div class="mb-4">
+              <label for="time" class="form-label">Ora e fillimit</label>
+              <select style="color: black" class="form-select" id="time" name="time" required>
+                <option value="">Zgjedhni nje ore</option>
+                <option value="18:00">6:00 PM</option>
+                <option value="18:30">6:30 PM</option>
+                <option value="19:00">7:00 PM</option>
+                <option value="19:30">7:30 PM</option>
+                <option value="20:00">8:00 PM</option>
+                <option value="20:30">8:30 PM</option>
+                <option value="21:00">9:00 PM</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="duration" class="form-label">Kohezgjatja (ore)</label>
+              <select style="color: black" class="form-select" id="duration" name="duration" required>
+                <option value="">Zgjedhni nje kohezgjatje</option>
+                <option value="1">1 ore</option>
+                <option value="1.5">1.5 ore</option>
+                <option value="2">2 ore</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="guests" class="form-label">Numri i mysafireve</label>
+              <select style="color: black" class="form-select" id="guests" name="guests" required>
+                <option value="">Zgjedhni nje numer</option>
+                <% for (let i = 1; i <= 8; i++) { %>
+                  <option value="<%= i %>"><%= i %> <%= i === 1 ? 'person' : 'njerez' %></option>
+                <% } %>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label for="specialRequests" class="form-label">Kerkesa speciale (opsionale)</label>
+              <textarea style="color: black" class="form-control" id="specialRequests" name="specialRequests" rows="3"></textarea>
+            </div>
+            <div class="mb-4">
+              <label class="form-label">Zgjedhni nje tavoline</label>
+              <div id="tablesContainer" class="tables-container restaurant-layout"></div>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Konfirmoni rezervimin</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  document.getElementById('date').addEventListener('change', updateTableAvailability);
+  document.getElementById('time').addEventListener('change', updateTableAvailability);
+  document.getElementById('duration').addEventListener('change', updateTableAvailability);
+
+  async function updateTableAvailability() {
+    const date = document.getElementById('date').value;
+    const time = document.getElementById('time').value;
+    const duration = document.getElementById('duration').value;
+    const container = document.getElementById('tablesContainer');
+
+    if (!date || !time || !duration) {
+      container.innerHTML = '';
+      return;
+    }
+
+    try {
+      const res = await fetch(`/reservations/tables/availability?date=${date}&time=${time}&duration=${duration}`);
+      const tables = await res.json();
+      container.innerHTML = '';
+
+      tables.forEach(table => {
+        const div = document.createElement('div');
+        div.classList.add('table');
+        div.dataset.tableNumber = table.tableNumber;
+        div.textContent = `Table ${table.tableNumber}`;
+        div.style.margin = '10px';
+        div.style.padding = '15px';
+        div.style.borderRadius = '8px';
+        div.style.textAlign = 'center';
+        div.style.cursor = 'pointer';
+
+        if (table.status === 'booked') {
+          div.classList.add('booked');
+          div.style.backgroundColor = '#777';
+          div.style.color = 'white';
+          div.style.pointerEvents = 'none';
+        } else {
+          div.classList.add('available');
+          div.style.backgroundColor = '#90ee90';
+          div.style.border = '1px solid black';
+          div.addEventListener('click', () => {
+            document.querySelectorAll('.table').forEach(t => {
+              t.classList.remove('selected');
+              t.style.border = '1px solid black';
+            });
+            div.classList.add('selected');
+            div.style.border = '3px solid gold';
+          });
+        }
+
+        container.appendChild(div);
+      });
+    } catch (err) {
+      console.error('Failed to fetch availability:', err);
+    }
+  }
+</script>
+
+<script>
+  document.getElementById('reservationForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const data = {
+      customerName: document.getElementById('customerName').value,
+      email: document.getElementById('email').value,
+      phoneNumber: document.getElementById('phoneNumber').value,
+      date: document.getElementById('date').value,
+      time: document.getElementById('time').value,
+      duration: document.getElementById('duration').value,
+      guests: document.getElementById('guests').value,
+      specialRequests: document.getElementById('specialRequests').value,
+      tableNumber: parseInt(document.querySelector('.table.selected')?.dataset.tableNumber)
+    };
+
+    try {
+      const res = await fetch('/reservations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        alert('✅ Reservation confirmed!');
+        window.location.reload();
+      } else {
+        alert(`❌ Error: ${result.message}`);
+      }
+    } catch (err) {
+      console.error('Reservation submission failed:', err);
+      alert('❌ Failed to submit reservation');
+    }
+  });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    // Initialize socket connection
+    window.socket = io();
+    
+    // Debug socket connection
+    window.socket.on('connect', () => {
+        console.log('Connected to socket server');
+    });
+
+    window.socket.on('disconnect', () => {
+        console.log('Disconnected from socket server');
+    });
+
+    window.socket.on('error', (error) => {
+        console.error('Socket error:', error);
+    });
+</script>
+<script src="/js/main.js"></script>
+<script>
+    // Add scroll effect to navbar
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 50) {
+            document.querySelector('.navbar').classList.add('scrolled');
+        } else {
+            document.querySelector('.navbar').classList.remove('scrolled');
+        }
+    });
+</script>
+<script>
+    function switchLanguage(targetLang) {
+        const currentPath = window.location.pathname;
+        const isAlbanian = currentPath.startsWith('/al');
+
+        let newPath;
+
+        if (targetLang === 'en' && isAlbanian) {
+            // Remove "/al" from the path
+            newPath = currentPath.replace(/^\/al/, '') || '/';
+        } else if (targetLang === 'al' && !isAlbanian) {
+            // Prefix "/al" to the path
+            newPath = '/al' + currentPath;
+        } else {
+            newPath = currentPath;
+        }
+
+        window.location.href = newPath;
+    }
+</script>
+<script>
+    function myFunction() {
+document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+if (!event.target.matches('.dropbtn')) {
+var dropdowns = document.getElementsByClassName("dropdown-content");
+var i;
+for (i = 0; i < dropdowns.length; i++) {
+  var openDropdown = dropdowns[i];
+  if (openDropdown.classList.contains('show')) {
+    openDropdown.classList.remove('show');
+  }
+}
+}
+}
+</script>
+</body>
+</html>
+<%- include('partials/footer') %> 

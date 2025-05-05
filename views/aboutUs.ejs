@@ -1,0 +1,224 @@
+<%
+    const content = `
+    <section class="hero-section">
+        <div class="container">
+            <h1>About Us</h1>
+            <p>Our story, our team, and our passion for food</p>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-6">
+                    <h2 class="section-title">Our Story</h2>
+                    <p class="lead" style="color: black;">Founded in 2010, our restaurant has been serving exceptional cuisine and creating memorable dining experiences for over a decade.</p>
+                    <p style="color: black;">We believe in using only the finest ingredients, sourced from local producers whenever possible. Our chefs combine traditional techniques with modern innovation to create dishes that delight and inspire.</p>
+                    <p style="color: black;">Our commitment to quality and service has earned us numerous awards and recognition in the culinary world. We take pride in being a part of our local community and contributing to its vibrant food culture.</p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about-image">
+                        <img src="https://i.pinimg.com/736x/7e/64/cb/7e64cbb5f9f45b2dd42dfcf83eb516c9.jpg" alt="Restaurant Interior" class="img-fluid rounded shadow">
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-section" style="padding-top: 2rem;">
+                <h2 class="section-title text-center mb-5">Meet Our Team</h2>
+                <div class="row" style="padding-top: 2rem;">
+                    <div class="col-md-4 mb-4">
+                        <div class="team-card">
+                            <div class="team-image">
+                                <img src="https://i.pinimg.com/474x/ec/5d/43/ec5d43058b0122a499bfa6f99f6f2eb4.jpg" alt="Head Chef John Smith" class="img-fluid">
+                            </div>
+                            <div class="team-info">
+                                <h3>John Smith</h3>
+                                <p class="position">Head Chef</p>
+                                <p style="color: black;">With over 20 years of culinary experience, Chef John brings creativity and expertise to every dish.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="team-card">
+                            <div class="team-image">
+                                <img src="https://i.pinimg.com/736x/50/31/ab/5031ab7be5d551beb79b16fd76a8e757.jpg" alt="Restaurant Manager Sarah Johnson" class="img-fluid">
+                            </div>
+                            <div class="team-info">
+                                <h3>Sarah Johnson</h3>
+                                <p class="position">Restaurant Manager</p>
+                                <p style="color: black;">Sarah ensures that every guest receives exceptional service and leaves with a smile.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="team-card">
+                            <div class="team-image">
+                                <img src="https://i.pinimg.com/474x/d8/34/71/d83471d9fed9383b593f45eef74c52a8.jpg" alt="Sommelier Michael Brown" class="img-fluid">
+                            </div>
+                            <div class="team-info">
+                                <h3>Michael Brown</h3>
+                                <p class="position">Sommelier</p>
+                                <p style="color: black;">Our wine expert Michael helps guests find the perfect pairing for their meal.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-section">
+                <h2 class="section-title text-center mb-5">Location & Contact</h2>
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="contact-info">
+                            <div class="info-item">
+                                <h3>Address</h3>
+                                <p>
+                                    Nënë Tereza,<br>
+                                    Prishtina 10000<br>
+                                    Kosova
+                                </p>
+                            </div>
+                            <div class="info-item">
+                                <h3>Contact Information</h3>
+                                <p>
+                                    <i class="fas fa-phone"></i> +383 48 888 460<br>
+                                    <i class="fas fa-envelope"></i> info@restaurant.com
+                                </p>
+                            </div>
+                            <div class="info-item">
+                                <h3>Hours of Operation</h3>
+                                <p>
+                                    <strong>Monday - Saturday:</strong> 7am - 10pm<br>
+                                    <strong>Sunday:</strong> Closed
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="map-container">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4150.449822912363!2d21.112169551402545!3d42.64416199484599!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x13549fe71a794ed7%3A0x3a08b58bfa2a167!2sN&#39;pik%C3%ABM%20Restaurant!5e0!3m2!1sen!2s!4v1745448281432!5m2!1sen!2s"
+                                width="100%"
+                                height="452"
+                                style="border:0;"
+                                allowfullscreen=""
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    `;
+%>
+<%- include('layout', { title: 'About Us', content }) %>
+<%- include('partials/footer') %> 
+<style>
+.about-section {
+    padding: 4rem 0;
+    background-color: #f8f9fa;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.about-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.about-image img {
+    transition: transform 0.3s ease;
+}
+
+.about-image:hover img {
+    transform: scale(1.05);
+}
+
+.team-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 480px;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+}
+
+.team-image {
+    height: 250px;
+    overflow: hidden;
+}
+
+.team-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.team-info {
+    padding: 1.5rem;
+}
+
+.team-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.team-info .position {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.contact-info {
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.info-item {
+    margin-bottom: 2rem;
+}
+
+.info-item:last-child {
+    margin-bottom: 0;
+}
+
+.info-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.info-item p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.map-container {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+    
+    .team-image {
+        height: 200px;
+    }
+}
+</style> 
+

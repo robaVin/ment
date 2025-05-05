@@ -1,0 +1,55 @@
+<%- include('partials/header', { title: 'Error' }) %>
+
+<div class="error-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <h1 class="error-title">Oops!</h1>
+                <h2 class="error-subtitle"><%= message %></h2>
+                <% if (error && process.env.NODE_ENV === 'development') { %>
+                    <div class="error-details">
+                        <pre><%= JSON.stringify(error, null, 2) %></pre>
+                    </div>
+                <% } %>
+                <a href="/" class="btn btn-primary mt-4">Return to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.error-section {
+    padding: 4rem 0;
+    min-height: 100vh;
+    background-color: var(--secondary-color);
+}
+
+.error-title {
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    font-family: 'Forum', serif;
+}
+
+.error-subtitle {
+    font-size: 1.5rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+}
+
+.error-details {
+    background-color: var(--primary-color);
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+    text-align: left;
+    color: var(--text-color);
+}
+
+.error-details pre {
+    margin: 0;
+    white-space: pre-wrap;
+}
+</style>
+
+<%- include('partials/footer') %> 

@@ -1,0 +1,121 @@
+<%
+    const content = `
+    <section class="hero-section">
+        <div class="container">
+            <h1>Serving classics with a twist</h1>
+            <p>A one-of-a-kind cocktail bar</p>
+            <a href="/reservations" class="btn btn-primary">Make a Reservation</a>
+        </div>
+    </section>
+
+    <section class="story-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h2>Our Story</h2>
+                    <p class="lead">A modern twist on classic cocktails</p>
+                    <p>Founded in 2024, our bar brings together the best of traditional mixology with contemporary flair. Our expert bartenders craft each drink with precision and passion, using only the finest ingredients.</p>
+                    <p>Whether you're a cocktail connoisseur or just starting your journey into the world of mixology, our menu offers something for everyone. From timeless classics to innovative creations, each drink tells a story.</p>
+                </div>
+                <div class="col-md-6">
+                    <div class="story-image">
+                        <img src="https://i.pinimg.com/736x/5d/f0/1e/5df01e6b3334f976ff63edf8cf99c8b6.jpg" alt="Cocktail Bar Interior" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="menu-section">
+        <div class="container">
+            <h2 class="text-center mb-5" style="color: black;">Food you can't forget</h2>
+            <div class="row">
+                <div class="col-md-3 menu-item">
+                    <img src="https://i.pinimg.com/736x/e7/19/2e/e7192e1213b3866c9a5e9ab0bde49d05.jpg" alt="The Nueva Fashioned" class="img-fluid" style="height: 450px; padding: 1rem; border-radius: 10px; ">
+                    <h3 style="padding-left: 1rem;">The Pappardelle</h3>
+                    <p style="padding-bottom: 1rem; padding-left: 1rem;">Mezcal, chile-bitters, honey</p>
+                </div>
+                <div class="col-md-3 menu-item">
+                    <img src="https://i.pinimg.com/736x/ce/62/e8/ce62e899c2bfc9ed5a5ba7209fc08b56.jpg" alt="The Key Rita" class="img-fluid" style="height: 450px; padding: 1rem;">
+                    <h3 style="padding-left: 1rem;">The Key Rita</h3>
+                    <p style="padding-bottom: 1rem;padding-left: 1rem;">Tequila, cointreau, key lime</p>
+                </div>
+                <div class="col-md-3 menu-item">
+                    <img src="https://i.pinimg.com/474x/41/28/f1/4128f1c73a34078005e3eb5aea23d076.jpg" alt="The 'Tini" class="img-fluid" style="height: 450px; padding: 1rem">
+                    <h3 style="padding-left: 1rem;">The 'Tini</h3>
+                    <p style="padding-bottom: 1rem; padding-left: 1rem;">Gin, vermouth, olives</p>
+                </div>
+                <div class="col-md-3 menu-item">
+                        <img src="https://i.pinimg.com/474x/0e/50/16/0e5016504b58ed10ed6767b3a0ff8bee.jpg" alt="The Smokeshow" class="img-fluid" style="height: 450px; padding: 1rem;" >
+                    <h3 style="padding-left: 1rem;">The Smokeshow</h3>
+                    <p style="padding-bottom: 1rem; padding-left: 1rem;">Scotch, blood orange, honey</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" style="background-color: rgb(219, 188, 9);">
+        <div class="container">
+            <h2>Food brought to you by our friends next door, Rudie's</h2>
+            <p class="mt-4">"My new favorite cocktail spot, by far."</p>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title">Elevate Your Dining Experience</h2>
+                    <p class="section-subtitle mb-5" style="color: black;">Discover our exclusive offerings and special events</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-calendar-star"></i>
+                        </div>
+                        <h3 style="color: black;">Signature Events</h3>
+                        <p style="color: black;">Join us for our monthly wine pairing dinners, chef's table experiences, and seasonal tasting menus. Limited seating available.</p>
+                        <div class="contact-details">
+                            <p style="color: black;"><i class="fas fa-clock"></i> Monthly Events</p>
+                            <p style="color: black;"><i class="fas fa-users"></i> Limited to 20 guests</p>
+                        </div>
+                        <a href="/reservations" class="btn btn-outline-primary">View Calendar</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-glass-cheers"></i>
+                        </div>
+                        <h3 style="color: black;">Private Dining</h3>
+                        <p style="color: black;">Host your special occasion in our elegant private rooms. Custom menus and dedicated service for groups of 10-50 guests.</p>
+                        <div class="contact-details">
+                            <p style="color: black;"><i class="fas fa-map-marker-alt"></i> Multiple private rooms</p>
+                            <p style="color: black;"><i class="fas fa-cocktail"></i> Custom beverage pairings</p>
+                        </div>
+                        <a href="/reservations" class="btn btn-outline-primary">Plan Your Event</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-wine-bottle"></i>
+                        </div>
+                        <h3 style="color: black;">Wine Cellar</h3>
+                        <p style="color: black;">Explore our extensive wine collection with expert sommelier guidance. Join our wine club for exclusive tastings and <br>events.</p> 
+                        <div class="contact-details">
+                            <p style="color: black;"><i class="fas fa-trophy"></i> Award-winning selection</p>
+                            <p style="color: black;"><i class="fas fa-calendar-check"></i> Weekly tastings</p>
+                        </div>
+                        <a href="/reservations" class="btn btn-outline-primary">Join the Club</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    `;
+%>
+<%- include('layout', { title: 'Home', content }) %>
+<%- include('partials/footer') %> 
