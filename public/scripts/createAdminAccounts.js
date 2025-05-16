@@ -1,101 +1,43 @@
-require('dotenv').config();
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const User = require('../models/User');
+const User = require('../models/User'); // adjust path if needed
+require('dotenv').config();
 
-// Database connection
-mongoose.connect(process.env.MONGODB_URI);
+const MONGODB_URI = process.env.MONGODB_URI || 'your-atlas-uri-here';
 
-const accounts = [
-    // Admin accounts
-    {
-        email: process.env.ADMIN1_EMAIL,
-        username: 'admin1',
-        password: process.env.ADMIN1_PASSWORD,
-        role: 'admin'
-    },
-    {
-        email: process.env.ADMIN2_EMAIL,
-        username: 'admin2',
-        password: process.env.ADMIN2_PASSWORD,
-        role: 'admin'
-    },
-    {
-        email: process.env.ADMIN3_EMAIL,
-        username: 'admin3',
-        password: process.env.ADMIN3_PASSWORD,
-        role: 'admin'
-    },
-    // Manager accounts
-    {
-        email: process.env.MANAGER1_EMAIL,
-        username: 'manager1',
-        password: process.env.MANAGER1_PASSWORD,
-        role: 'manager'
-    },
-    {
-        email: process.env.MANAGER2_EMAIL,
-        username: 'manager2',
-        password: process.env.MANAGER2_PASSWORD,
-        role: 'manager'
-    },
-    {
-        email: process.env.MANAGER3_EMAIL,
-        username: 'manager3',
-        password: process.env.MANAGER3_PASSWORD,
-        role: 'manager'
-    },
-    // Hoster accounts
-    {
-        email: process.env.HOST1_EMAIL,
-        username: 'host1',
-        password: process.env.HOST1_PASSWORD,
-        role: 'host'
-    },
-    {
-        email: process.env.HOST2_EMAIL,
-        username: 'host2',
-        password: process.env.HOST2_PASSWORD,
-        role: 'host'
-    },
-    {
-        email: process.env.HOST3_EMAIL,
-        username: 'host3',
-        password: process.env.HOST3_PASSWORD,
-        role: 'host'
+mongoose.connect(MONGODB_URI).then(async () => {
+    console.log('Connected to MongoDB');
+
+    const existingAdmins = await User.findOne({ role: 'admin' });
+    if (existingAdmins) {
+        console.log('Admin accounts already exist. Skipping creation.');
+        process.exit(0);
     }
-];
 
-async function createAccounts() {
-    try {
-        // Clear existing admin, manager, and hoster accounts
-        await User.deleteMany({ role: { $in: ['admin', 'manager', 'hoster'] } });
-        console.log('Cleared existing admin, manager, and hoster accounts');
-
-        // Create new accounts
-        for (const account of accounts) {
-            if (!account.email || !account.password || !account.username) {
-                console.error('Missing required fields for an account');
-                continue;
-            }
-            
-            const hashedPassword = await bcrypt.hash(account.password, 10);
-            const user = new User({
-                email: account.email,
-                username: account.username,
-                password: hashedPassword,
-                role: account.role
-            });
-            await user.save();
-            console.log(`Created ${account.role} account: ${account.email}`);
+    const users = [
+        {
+            name: "Admin",
+            email: "admin@admin.com",
+            password: "admin123",
+            role: "admin"
+        },
+        {
+            name: "Hoster",
+            email: "host@host.com",
+            password: "host123",
+            role: "host"
+        },
+        {
+            name: "Manager",
+            email: "manager@manager.com",
+            password: "manager123",
+            role: "manager"
         }
+    ];
 
-        console.log('All accounts created successfully');
-    } catch (error) {
-        console.error('Error creating accounts:', error);
-    } finally {
-        mongoose.connection.close();
-    }
-}
-
-createAccounts(); 
+    await User.insertMany(users);
+    console.log("Initial accounts created.");
+    process.exit(0);
+}).catch(err => {
+    console.error(err);
+    process.exit(1);
+});
