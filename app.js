@@ -69,7 +69,7 @@ app.use((req, res, next) => {
 const authRoutes = require('./routes/auth');
 
 // Routes
-app.use('/', require('./routes/index'));
+// app.use('/', require('./routes/index'));
 app.use('/auth', authRoutes.router);
 app.use('/menu', require('./routes/menu'));
 app.use('/reservations', require('./routes/reservations'));
@@ -129,6 +129,10 @@ app.get('/lang/:locale', (req, res) => {
   res.cookie('lang', locale, { maxAge: 900000, httpOnly: true });
   res.setLocale(locale);
   res.redirect('back'); // Redirect back to previous page
+});
+
+app.get('/', (req, res) => {
+  res.redirect('/coming-soon');
 });
 
 
