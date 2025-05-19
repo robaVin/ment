@@ -53,7 +53,7 @@ router.post('/login', async (req, res) => {
     }
   console.log('Password from DB:', user.password);
 console.log('Input password:', password);
-const isMatch = await bcrypt.compare(password, user.password);
+
 console.log('Password match:', isMatch);
 
     // Set session
