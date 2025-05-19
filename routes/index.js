@@ -3,26 +3,26 @@ const router = express.Router();
 
 // Home page
 router.get('/', (req, res) => {
-  res.render('homepage', { title: 'Homepage' });
+  res.render('homepage_al', { title: 'Ballina' });
 });
 
 // About page
 router.get('/about', (req, res) => {
-  res.render('aboutUs', { title: 'About Us' });
+  res.render('aboutUs_al', { title: 'Për ne' });
 });
 
 
 
-// Albanian routes
-router.get('/al', (req, res) => {
-  res.render('homepage_al', { title: 'Ballina' });
+// English routes
+router.get('/en', (req, res) => {
+  res.render('homepage', { title: 'Home' });
 });
 
-router.get('/al/reservations', (req, res) => {
-  res.render('reservations_al', { title: 'Rezervime' });
+router.get('/en/reservations', (req, res) => {
+  res.render('reservations', { title: 'Reservations' });
 });
 
-router.get('/al/about', (req, res) => {
-  res.render('aboutUs_al', { title: 'Per ne' });
+router.get('/en/about', (req, res) => {
+  res.render('aboutUs', { title: 'About us' });
 });
 module.exports = router;
