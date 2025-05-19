@@ -8,39 +8,13 @@ const http = require('http');
 const socketIo = require('socket.io');
 const compression = require('compression');
 const helmet = require('helmet');
-
+const logger = require('morgan');
+const router = require('./routes/index');
+const { auth } = require('express-openid-connect'); // Auth0 middleware
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
-
-const { auth } = require('express-openid-connect');
-
-const config = {
-  authRequired: false,
-  auth0Logout: true,
-  secret: 'a long, randomly-generated string stored in env',
-  baseURL: 'https://www.npikem.com',
-  clientID: 'i8Z1flPMB03tSqOUT5FJeYoprBjufO71',
-  issuerBaseURL: 'https://dev-x517c5vxug2bmj6e.us.auth0.com'
-};
-
-// auth router attaches /login, /logout, and /callback routes to the baseURL
-app.use(auth(config));
-
-// req.isAuthenticated is provided from the auth router
-app.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-});
-
-
 const i18n = require('i18n');
-
-app.use((req, res, next) => {
-  if (req.headers['x-forwarded-proto'] !== 'https') {
-    return res.redirect(`https://${req.headers.host}${req.url}`);
-  }
-  next();
-});
 
 // Performance middleware
 app.use(compression());
@@ -48,17 +22,14 @@ app.use(helmet({
   contentSecurityPolicy: false,
 }));
 
-
 i18n.configure({
   locales: ['en', 'sq'], // languages available
-  directory: __dirname + '/locales', // where your files are
-  defaultLocale: 'sq', // default language
-  cookie: 'lang', // save language preference in cookie
+  directory: __dirname + '/locales',
+  defaultLocale: 'sq',
+  cookie: 'lang',
 });
 
 app.use(i18n.init);
-
-
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
@@ -71,7 +42,20 @@ mongoose.connect(process.env.MONGODB_URI, {
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// Middleware
+// Auth0 config
+const authConfig = {
+  authRequired: false, // allows both authenticated and non-authenticated users access
+  auth0Logout: true,
+  secret: process.env.AUTH0_SECRET,
+  baseURL: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`,
+  clientID: process.env.AUTH0_CLIENT_ID,
+  issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}`
+};
+
+// Auth0 middleware
+app.use(auth(authConfig));
+
+// View engine setup
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
@@ -85,6 +69,13 @@ app.use(session({
   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
   cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24 hours
 }));
+
+// Make user info available in views
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.oidc.isAuthenticated();
+  res.locals.user = req.oidc.user;
+  next();
+});
 
 // Debug middleware
 app.use((req, res, next) => {
@@ -106,7 +97,6 @@ app.use('/dashboard', require('./routes/dashboard'));
 io.on('connection', (socket) => {
   console.log('A user connected');
   
-  // Handle table status updates
   socket.on('tableStatusChanged', (data) => {
     console.log('Broadcasting table status change:', data);
     io.emit('tableStatusChanged', data);
@@ -155,9 +145,8 @@ app.get('/lang/:locale', (req, res) => {
   const locale = req.params.locale;
   res.cookie('lang', locale, { maxAge: 900000, httpOnly: true });
   res.setLocale(locale);
-  res.redirect('back'); // Redirect back to previous page
+  res.redirect('back');
 });
-
 
 // 404 handler
 app.use((req, res) => {
@@ -168,4 +157,4 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-}); 
+});
