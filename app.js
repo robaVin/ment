@@ -16,6 +16,20 @@ const server = http.createServer(app);
 const io = socketIo(server);
 const i18n = require('i18n');
 
+// Auth0 config
+const authConfig = {
+  authRequired: false, // allows both authenticated and non-authenticated users access
+  auth0Logout: true,
+  secret: process.env.AUTH0_SECRET,
+  baseURL: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`,
+  clientID: process.env.AUTH0_CLIENT_ID,
+  issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}`
+};
+
+// Auth0 middleware
+app.use(auth(authConfig));
+
+
 // Performance middleware
 app.use(compression());
 app.use(helmet({
@@ -41,19 +55,6 @@ mongoose.connect(process.env.MONGODB_URI, {
 })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
-
-// Auth0 config
-const authConfig = {
-  authRequired: false, // allows both authenticated and non-authenticated users access
-  auth0Logout: true,
-  secret: process.env.AUTH0_SECRET,
-  baseURL: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`,
-  clientID: process.env.AUTH0_CLIENT_ID,
-  issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}`
-};
-
-// Auth0 middleware
-app.use(auth(authConfig));
 
 // View engine setup
 app.set('view engine', 'ejs');
