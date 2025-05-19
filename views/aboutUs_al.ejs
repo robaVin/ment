@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> - Restaurant</title>
+    <title><%= title %> - N’pikëM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -149,35 +149,36 @@
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="/al">
+            <a class="navbar-brand" href="/">
                 <img src="/logo.jpg" alt="" height="80px">
               </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"><div></div></span>
+              </button>
+              
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/al">Ballina</a>
+                        <a class="nav-link" href="/">Ballina</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/menu">Menu</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/al/reservations">Rezervime</a>
+                        <a class="nav-link" href="/reservations">Rezervime</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/al/about">Per ne</a>
+                        <a class="nav-link" href="/about">Për ne</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/auth/login">Kycu</a>
+                        <a class="nav-link" href="/auth/login">Kyçu</a>
                     </li>
                     <li class="nav-item">
                         <div class="dropdown">
                             <button onclick="myFunction()" class="dropbtn" style="display: block;">Gjuha</button>
                                 <div id="myDropdown" class="dropdown-content">
-                                    <a href="/al" style="display: block;">Shqip</a>
-                                    <a href="/" style="display: block;">English</a>
+                                    <a href="/" style="display: block;">Shqip</a>
+                                    <a href="/en" style="display: block;">English</a>
                                 </div>
                           </div>
                           
@@ -190,19 +191,23 @@
 
     <section class="hero-section">
         <div class="container">
-            <h1>Per ne</h1>
+            <h1>Për ne</h1>
             <p>Historia jonë, ekipi ynë dhe pasioni ynë për ushqimin</p>
         </div>
     </section>
 
     <section class="about-section">
         <div class="container">
-            <div class="row align-items-center mb-5">
+            <div class="row mb-5">
                 <div class="col-lg-6">
-                    <h2 class="section-title">Historia jone</h2>
-                    <p class="lead" style="color: black;">I themeluar në vitin 2010, restoranti ynë ka shërbyer kuzhinë të jashtëzakonshme dhe ka krijuar përvoja të paharrueshme për më shumë se një dekadë.</p>
-                    <p style="color: black;">Ne besojmë në përdorimin vetëm të përbërësve më të mirë, të siguruar nga prodhuesit vendas sa herë që është e mundur. Shefat tanë të kuzhinës kombinojnë teknikat tradicionale me inovacionin modern për të krijuar pjata që të kënaqin dhe të frymëzojnë.</p>
-                    <p style="color: black;">Angazhimi ynë ndaj cilësisë dhe shërbimit na ka sjellë çmime dhe njohje të shumta në botën e kuzhinës. Ne krenohemi që jemi pjesë e komunitetit tonë lokal dhe që kontribuojmë në kulturën e tij të gjallë të ushqimit.</p>
+                    <h3 class="section-title">Historia jone</h3>
+                    <p style="color:black; font-size: large;">E gjitha nisi nga një pasion i sinqertë për të krijuar një vend të veçantë në zemër të Prishtinës, një hapësirë ku mikpritja takohet me elegancën, ku atmosfera fton për relaksim, dhe çdo detaj flet për kujdes.<br>
+                        N’pikëM është vendi ku do të ndiheni si në shtëpi, por me një dozë të rafinuar luksi dhe rehatie. Ambient unik, shërbim i dedikuar, muzikë e zgjedhur dhe kuzhinë që flet shqip, por mendon globalisht.
+                         Nga mëngjesi i parë me kafe aromatike dhe mëngjes të freskët, te drekat me shije autentike dhe darkat e shoqëruara me kokteje të veçanta çdo moment është i kuruar me përkushtim. <br>
+                        Pas orëve të mbrëmjes, N’pikëM shndërrohet në një klub modern me muzikë live, DJ të ftuar dhe atmosferë energjike që zgjat deri në orët e vona. Është vendi ideal për takime, festa, ngjarje të veçanta apo thjesht për të shijuar jetën. <br>
+                            Me hapësira të bollshme, teknologji të avancuar të ndriçimit dhe zërit, siguri maksimale dhe parking për mbi 400 makina, jemi gati të bëhemi pika më e nxehtë e takimit për adhuruesit e jetës urbane dhe argëtimit cilësor në Kosovë.
+                            <br> Ejani, uluni vallëzoni dhe ndihuni si në shtëpinë tuaj N’pikëM
+                            </p>
                 </div>
                 <div class="col-lg-6">
                     <div class="about-image">
@@ -212,7 +217,7 @@
             </div>
 
             <div class="team-section" style="padding-top: 2rem;">
-                <h2 class="section-title text-center mb-5">Takoni Ekipin Tonë</h2>
+                <h3 class="section-title text-center mb-5">Takoni Ekipin Tonë</h3>
                 <div class="row" style="padding-top: 2rem;">
                     <div class="col-md-4 mb-4">
                         <div class="team-card">
@@ -254,29 +259,29 @@
             </div>
 
             <div class="contact-section">
-                <h2 class="section-title text-center mb-5">Vendndodhja & Kontakti</h2>
+                <h3 class="section-title text-center mb-5">Vendndodhja & Kontakti</h3>
                 <div class="row">
                     <div class="col-lg-6 mb-4">
                         <div class="contact-info">
                             <div class="info-item">
                                 <h3>Adresa</h3>
                                 <p>
-                                    Nënë Tereza,<br>
-                                    Prishtina 10000<br>
-                                    Kosova
+                                    Lidhja e Pejës 283,<br>
+                                    (Zona industriale Prishtinë-Fushë Kosovë objekti "Moda Italia")
                                 </p>
                             </div>
                             <div class="info-item">
-                                <h3>Si te na kontaktoni?</h3>
+                                <h3>Si të na kontaktoni?</h3>
                                 <p>
                                     <i class="fas fa-phone"></i> +383 48 888 460<br>
-                                    <i class="fas fa-envelope"></i> info@restaurant.com
+                                    <i class="fas fa-phone"></i> +383 48 888 461<br>
+                                    <i class="fas fa-envelope"></i> info@npikem.com
                                 </p>
                             </div>
                             <div class="info-item">
-                                <h3>Orari i punes</h3>
+                                <h3>Orari i punës</h3>
                                 <p>
-                                    <strong>E hene - E shtune:</strong> 7am - 10pm<br>
+                                    <strong>E hënë - E shtunë:</strong> 07:00 - 02:00<br>
                                     <strong>E diel:</strong> Mbyllur
                                 </p>
                             </div>
@@ -370,4 +375,38 @@ window.onclick = function(event) {
     </script>
     </body>
     </html>
-<%- include('partials/footer') %> 
+<!-- <%- include('partials/footer') %>  -->
+
+
+<footer class="footer mt-auto py-3">
+    <div class="container" style="padding-bottom: 2.5rem;">
+        <div class="row" style="padding-top: 2.5rem;">
+            <div class="col-md-4">
+                <h4>Na kontaktoni</h4>
+                <p> Lidhja e Pejës 283,<br>
+                (zona industriale  Prishtinë -Fushë Kosovë objekti “Moda Italia”)<br>
+                Telefon: +383 48 888 460<br>
+                        +383 48 888 461
+            </div>
+            <div class="col-md-4">
+                <h4>Orari</h4>
+                <p style="padding-top:1rem">E hënë - E shtunë:<br>
+                    07:00 - 02:00</p>
+                
+            </div>
+            <div class="col-md-4">
+                <h4>Na ndjekni</h4>
+                <div class="social-links">
+                    <a href="#" class="me-2">Facebook</a>
+                    <a href="#" class="me-2">Instagram</a>
+                    <a href="#">Twitter</a>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 text-center">
+                <p class="mb-0">&copy; 2024 N’pikëM. Të gjitha të drejtat e rezervuara.</p>
+            </div>
+        </div>
+    </div>
+</footer>
