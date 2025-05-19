@@ -51,6 +51,10 @@ router.post('/login', async (req, res) => {
       console.error('Password mismatch for user:', username);
       return res.status(401).json({ message: 'Invalid credentials' });
     }
+  console.log('Password from DB:', user.password);
+console.log('Input password:', password);
+const isMatch = await bcrypt.compare(password, user.password);
+console.log('Password match:', isMatch);
 
     // Set session
     req.session.user = {
