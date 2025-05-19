@@ -15,7 +15,7 @@ const transporter = nodemailer.createTransport({
 
 
 router.get('/', (req, res) => {
-  res.render('reservations', { title: 'Reservations' });
+  res.render('reservations_al', { title: 'Rezervime' });
 });
 
 router.get('/tables', async (req, res) => {
