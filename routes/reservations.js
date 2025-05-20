@@ -1,9 +1,8 @@
-const checkRole = require('../middleware/checkRole'); // Adjust the path as needed
 const express = require('express');
 const router = express.Router();
 const Reservation = require('../models/Reservation');
 const Table = require('../models/Table');
-const { isAuthenticated } = require('./auth');
+const { isAuthenticated, checkRole } = require('./auth');
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
