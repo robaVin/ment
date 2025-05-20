@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const Reservation = require('../models/Reservation');
 const Table = require('../models/Table');
-const { isAuthenticated, checkRole } = require('./auth');
+const { isAuthenticated } = require('./auth');
 const nodemailer = require('nodemailer');
 
 const transporter = nodemailer.createTransport({
