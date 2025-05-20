@@ -1,3 +1,4 @@
+const checkRole = require('../middleware/checkRole'); // Adjust the path as needed
 const express = require('express');
 const router = express.Router();
 const Reservation = require('../models/Reservation');
