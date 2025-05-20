@@ -8,39 +8,39 @@ const http = require('http');
 const socketIo = require('socket.io');
 const compression = require('compression');
 const helmet = require('helmet');
-const logger = require('morgan');
-const { auth } = require('express-openid-connect');
-const i18n = require('i18n');
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-// Auth0 Configuration
-const authConfig = {
-  authRequired: false,
-  auth0Logout: true,
-  secret: process.env.AUTH0_SECRET,
-  baseURL: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`,
-  clientID: process.env.AUTH0_CLIENT_ID,
-  issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}`
-};
+const i18n = require('i18n');
 
-app.use(auth(authConfig));
+app.use((req, res, next) => {
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    return res.redirect(`https://${req.headers.host}${req.url}`);
+  }
+  next();
+});
 
-// Middleware
+// Performance middleware
 app.use(compression());
-app.use(helmet({ contentSecurityPolicy: false }));
+app.use(helmet({
+  contentSecurityPolicy: false,
+}));
+
 
 i18n.configure({
-  locales: ['en', 'sq'],
-  directory: path.join(__dirname, 'locales'),
-  defaultLocale: 'sq',
-  cookie: 'lang',
+  locales: ['en', 'sq'], // languages available
+  directory: __dirname + '/locales', // where your files are
+  defaultLocale: 'sq', // default language
+  cookie: 'lang', // save language preference in cookie
 });
+
 app.use(i18n.init);
 
-// MongoDB Connection
+
+
+// Connect to MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -51,48 +51,42 @@ mongoose.connect(process.env.MONGODB_URI, {
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
-// EJS Setup
+// Middleware
 app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Session Setup
+// Session configuration
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
-  cookie: { maxAge: 1000 * 60 * 60 * 24 }
+  cookie: { maxAge: 1000 * 60 * 60 * 24 } // 24 hours
 }));
 
-// Expose user data to views
-app.use((req, res, next) => {
-  res.locals.isAuthenticated = req.oidc.isAuthenticated();
-  res.locals.user = req.oidc.user;
-  next();
-});
-
-// Log all requests
+// Debug middleware
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
   next();
 });
 
-// Routes
+// Import routes
 const authRoutes = require('./routes/auth');
-const indexRoutes = require('./routes/index');
-const dashboardRoutes = require('./routes/dashboard');
-app.use('/', indexRoutes);
-app.use('/auth', authRoutes);
-app.use('/dashboard', dashboardRoutes);
+
+// Routes
+app.use('/', require('./routes/index'));
+app.use('/auth', authRoutes.router);
 app.use('/menu', require('./routes/menu'));
 app.use('/reservations', require('./routes/reservations'));
+app.use('/dashboard', require('./routes/dashboard'));
 
-// Socket.io Events
+// Socket.io connection handling
 io.on('connection', (socket) => {
   console.log('A user connected');
-
+  
+  // Handle table status updates
   socket.on('tableStatusChanged', (data) => {
     console.log('Broadcasting table status change:', data);
     io.emit('tableStatusChanged', data);
@@ -113,45 +107,45 @@ io.on('connection', (socket) => {
   });
 });
 
+// Attach io to app for use in routes
 app.set('io', io);
 
-// Error Handler
+// Error handling middleware
 app.use((err, req, res, next) => {
   console.error('Error details:', {
     message: err.message,
     stack: err.stack,
     name: err.name
   });
-
+  
   if (req.xhr || req.headers.accept.includes('application/json')) {
-    res.status(500).json({
+    res.status(500).json({ 
       error: 'Server Error',
       message: err.message || 'An unexpected error occurred'
     });
   } else {
-    res.status(500).render('error', {
+    res.status(500).render('error', { 
       message: 'An error occurred while processing your request',
       error: process.env.NODE_ENV === 'development' ? err : {}
     });
   }
 });
 
-// Locale Switching
 app.get('/lang/:locale', (req, res) => {
   const locale = req.params.locale;
   res.cookie('lang', locale, { maxAge: 900000, httpOnly: true });
   res.setLocale(locale);
-  res.redirect('back');
+  res.redirect('back'); // Redirect back to previous page
 });
 
-// 404 Handler
+
+// 404 handler
 app.use((req, res) => {
   console.log(`404 - Route not found: ${req.url}`);
   res.status(404).send('Page not found');
 });
 
-// Start Server
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-});
+}); 
