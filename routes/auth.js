@@ -29,56 +29,55 @@ router.get('/login', (req, res) => {
 });
 
 // Login handler
+// routes/auth.js - fixed login POST route without email
+
 router.post('/login', async (req, res) => {
   try {
-    const { username, email, password, userType } = req.body;
-    console.log('Login attempt:', { username, email, userType });
+    const { username, password, userType } = req.body;
 
-    if (!username || !email || !password || !userType) {
+    // Validate required fields
+    if (!username || !password || !userType) {
       return res.status(400).json({ message: 'All fields are required!' });
     }
 
-    // Find user by username and role
+    // Find user by username and role (userType)
     const user = await User.findOne({ username, role: userType });
+
     if (!user) {
-      console.error('User not found:', username);
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Verify password
-    const isMatch = await bcrypt.compare(password, user.password);
+    // Compare hashed password with provided password
+    const isMatch = await user.comparePassword(password);
+
     if (!isMatch) {
-      console.error('Password mismatch for user:', username);
       return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Set session
+    // Set session user info
     req.session.user = {
       id: user._id,
       username: user.username,
-      email: user.email,
-      role: user.role
+      role: user.role,
     };
 
     // Redirect based on role
     switch (user.role) {
       case 'admin':
-        res.redirect('/dashboard/admin');
-        break;
+        return res.redirect('/dashboard/admin');
       case 'manager':
-        res.redirect('/dashboard/manager');
-        break;
+        return res.redirect('/dashboard/manager');
       case 'host':
-        res.redirect('/dashboard/hoster');
-        break;
+        return res.redirect('/dashboard/host');
       default:
-        res.redirect('/');
+        return res.redirect('/');
     }
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
+
 
 // Logout handler
 router.get('/logout', (req, res) => {
