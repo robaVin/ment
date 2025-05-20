@@ -9,8 +9,8 @@ const socketIo = require('socket.io');
 const compression = require('compression');
 const helmet = require('helmet');
 const logger = require('morgan');
-const router = require('./routes/index');
 const { auth } = require('express-openid-connect'); // Auth0 middleware
+
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
@@ -18,7 +18,7 @@ const i18n = require('i18n');
 
 // Auth0 config
 const authConfig = {
-  authRequired: false, // allows both authenticated and non-authenticated users access
+  authRequired: false,
   auth0Logout: true,
   secret: process.env.AUTH0_SECRET,
   baseURL: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}`,
@@ -29,7 +29,6 @@ const authConfig = {
 // Auth0 middleware
 app.use(auth(authConfig));
 
-
 // Performance middleware
 app.use(compression());
 app.use(helmet({
@@ -37,7 +36,7 @@ app.use(helmet({
 }));
 
 i18n.configure({
-  locales: ['en', 'sq'], // languages available
+  locales: ['en', 'sq'],
   directory: __dirname + '/locales',
   defaultLocale: 'sq',
   cookie: 'lang',
@@ -86,13 +85,15 @@ app.use((req, res, next) => {
 
 // Import routes
 const authRoutes = require('./routes/auth');
+const indexRoutes = require('./routes/index');
+const dashboardRoutes = require('./routes/dashboard');
 
 // Routes
-app.use('/', require('./routes/index'));
-app.use('/auth', authRoutes.router);
+app.use('/', indexRoutes);
+app.use('/auth', authRoutes);
+app.use('/dashboard', dashboardRoutes);
 app.use('/menu', require('./routes/menu'));
 app.use('/reservations', require('./routes/reservations'));
-app.use('/dashboard', require('./routes/dashboard'));
 
 // Socket.io connection handling
 io.on('connection', (socket) => {
