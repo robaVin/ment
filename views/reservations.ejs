@@ -59,15 +59,6 @@
               </select>
             </div>
             <div class="mb-4">
-              <label for="duration" class="form-label">Duration (hours)</label>
-              <select style="color: black" class="form-select" id="duration" name="duration" required>
-                <option value="">Select duration</option>
-                <option value="1">1 hour</option>
-                <option value="1.5">1.5 hours</option>
-                <option value="2">2 hours</option>
-              </select>
-            </div>
-            <div class="mb-4">
               <label for="guests" class="form-label">Number of Guests</label>
               <select style="color: black" class="form-select" id="guests" name="guests" required>
                 <option value="">Select number of guests</option>
@@ -95,12 +86,10 @@
 <script>
   document.getElementById('date').addEventListener('change', updateTableAvailability);
   document.getElementById('time').addEventListener('change', updateTableAvailability);
-  document.getElementById('duration').addEventListener('change', updateTableAvailability);
 
   async function updateTableAvailability() {
     const date = document.getElementById('date').value;
     const time = document.getElementById('time').value;
-    const duration = document.getElementById('duration').value;
     const container = document.getElementById('tablesContainer');
 
     if (!date || !time || !duration) {
@@ -109,7 +98,7 @@
     }
 
     try {
-      const res = await fetch(`/reservations/tables/availability?date=${date}&time=${time}&duration=${duration}`);
+      const res = await fetch(`/reservations/tables/availability?date=${date}&time=${time}`);
       const tables = await res.json();
       container.innerHTML = '';
 
@@ -161,7 +150,6 @@
       phoneNumber: document.getElementById('phoneNumber').value,
       date: document.getElementById('date').value,
       time: document.getElementById('time').value,
-      duration: document.getElementById('duration').value,
       guests: document.getElementById('guests').value,
       specialRequests: document.getElementById('specialRequests').value,
       tableNumber: parseInt(document.querySelector('.table.selected')?.dataset.tableNumber)
