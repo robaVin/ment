@@ -29,15 +29,15 @@ router.get('/tables', async (req, res) => {
 
 router.get('/tables/availability', async (req, res) => {
   try {
-    const { date, time, duration } = req.query;
-    if (!date || !time || !duration) {
-      return res.status(400).json({ message: 'Date, time, and duration are required' });
-    }
+    const { date, time } = req.query;
+      if (!date || !time) {
+        return res.status(400).json({ message: 'Date and time are required' });
+        }
 
-    const [hours, minutes] = time.split(':').map(Number);
-    const startTime = new Date(`${date}T${time}:00Z`);
-    const durationMs = parseFloat(duration) * 60 * 60 * 1000;
-    const endTime = new Date(startTime.getTime() + durationMs);
+    // const [hours, minutes] = time.split(':').map(Number);
+    // const startTime = new Date(`${date}T${time}:00Z`);
+    // const durationMs = parseFloat(duration) * 60 * 60 * 1000;
+    // const endTime = new Date(startTime.getTime() + durationMs);
 
     const reservations = await Reservation.find({
       date,
@@ -133,11 +133,10 @@ router.get('/tables/availability', async (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const { customerName, email, phoneNumber, date, time, guests, specialRequests, tableNumber, duration } = req.body;
-
-    if (!customerName || !email || !phoneNumber || !date || !time || !guests || !tableNumber || !duration) {
-      return res.status(400).json({ message: 'Missing required fields' });
-    }
+    const { customerName, email, phoneNumber, date, time, guests, specialRequests, tableNumber } = req.body;
+if (!customerName || !email || !phoneNumber || !date || !time || !guests || !tableNumber) {
+  return res.status(400).json({ message: 'Missing required fields' });
+}
 
     const table = await Table.findOne({ tableNumber });
     if (!table) return res.status(404).json({ message: 'Table not found' });
@@ -168,16 +167,15 @@ router.post('/', async (req, res) => {
     }
 
     const reservation = new Reservation({
-      customerName,
-      email,
-      phoneNumber,
-      date,
-      time,
-      guests,
-      specialRequests,
-      tableNumber,
-      duration
-    });
+  customerName,
+  email,
+  phoneNumber,
+  date,
+  time,
+  guests,
+  specialRequests,
+  tableNumber
+});
 
     await reservation.save();
 
@@ -186,7 +184,8 @@ router.post('/', async (req, res) => {
       from: process.env.EMAIL_USER,
       to: email,
       subject: 'Reservation Confirmation',
-      text: `Hi ${customerName},\n\nYour reservation for ${date} at ${time} for ${guests} guests at Table #${tableNumber} has been confirmed.\n\nDuration: ${duration} hour(s)\nSpecial Requests: ${specialRequests}\n\nThank you for choosing our restaurant.`
+      text: `Hi ${customerName},\n\nYour reservation for ${date} at ${time} for ${guests} guests at Table #${tableNumber} has been confirmed.\n\nSpecial Requests: ${specialRequests}\n\nThank you for choosing our restaurant.`
+
     });
 
     const io = req.app.get('io');
