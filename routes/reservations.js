@@ -91,12 +91,12 @@ router.post('/', async (req, res) => {
 
     await reservation.save();
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER,
-      to: email,
-      subject: 'Reservation Confirmation',
-      text: `Hi ${customerName},\n\nYour reservation for ${date} at ${time} for ${guests} guests at Table #${tableNumber} has been confirmed.\n\nSpecial Requests: ${specialRequests}\n\nThank you for choosing our restaurant.`
-    });
+    // await transporter.sendMail({
+    //   from: process.env.EMAIL_USER,
+    //   to: email,
+    //   subject: 'Reservation Confirmation',
+    //   text: `Hi ${customerName},\n\nYour reservation for ${date} at ${time} for ${guests} guests at Table #${tableNumber} has been confirmed.\n\nSpecial Requests: ${specialRequests}\n\nThank you for choosing our restaurant.`
+    // });
 
     const io = req.app.get('io');
     if (io) {
