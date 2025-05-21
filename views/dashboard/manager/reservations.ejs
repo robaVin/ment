@@ -12,15 +12,18 @@
             <label for="dateFilter" class="form-label" style="color: black;">Filtroj sipas dates</label>
             <input type="date" id="dateFilter" class="form-control" style="color: black;">
           </div>
-          <div class="filter-group">
-            <label for="statusFilter" class="form-label" style="color: black;">Filtroj sipas statusit</label>
-            <select id="statusFilter" class="form-select" style="color: black;">
-              <option value="all">Te gjitha statuset</option>
-              <option value="pending">Ende të pakonfirmuara</option>
-              <option value="confirmed">Të konfirmuara</option>
-              <option value="cancelled">Të anuluara</option>
-            </select>
-          </div>
+          <div class="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl px-4 py-2">
+  <label for="statusFilter" class="block mb-2 text-sm font-medium text-black">
+    Filtroj sipas statusit
+  </label>
+  <select id="statusFilter" class="block w-full px-4 py-2 text-black bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-gold-500 focus:border-gold-500 sm:text-sm">
+    <option value="all">Të gjitha statuset</option>
+    <option value="pending">Ende të pakonfirmuara</option>
+    <option value="confirmed">Të konfirmuara</option>
+    <option value="cancelled">Të anuluara</option>
+  </select>
+</div>
+
         </div>
       </div>
     </div>
