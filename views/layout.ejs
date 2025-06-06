@@ -44,7 +44,7 @@
 <body>
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <a class="navbar-brand" href="/">
+            <a class="navbar-brand" href="/en">
                 <img src="/logo.jpg" alt="" height="80px">
               </a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -54,19 +54,25 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/en">Home</a>
+                        <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/menu.pdf">Menu</a>
+                        <div class="dropdown">
+                            <button onclick="myFunction2()" class="dropbtn" style="display: block;">Menu</button>
+                                <div id="myDropdown2" class="dropdown-content">
+                                    <a href="/npikem-menu-dite" style="display: block;">Day Menu</a>
+                                    <a href="/npikem-menu-nate" style="display: block;">Night Menu</a>
+                                </div>
+                          </div> 
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/en/reservations">Reservations</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/en/about">About</a>
+                        <a class="nav-link" href="/en/about">About us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/auth/login">Login</a>
+                        <a class="nav-link" href="/auth/login">Log in</a>
                     </li>
                     <li class="nav-item">
                         <div class="dropdown">
@@ -75,10 +81,11 @@
                                     <a href="/" style="display: block;">Shqip</a>
                                     <a href="/en" style="display: block;">English</a>
                                 </div>
-                          </div>
-                          
-                        
+                          </div> 
                     </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery">Gallery</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -92,6 +99,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
+             function myFunction2() {
+  document.getElementById("myDropdown2").classList.toggle("show");
+}
         // Initialize socket connection
         window.socket = io();
         
