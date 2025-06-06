@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %> - N’pikëM</title>
+    <title><%= title %> - Restaurant</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
@@ -162,7 +162,13 @@
                         <a class="nav-link" href="/">Ballina</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/menu.pdf">Menu</a>
+                        <div class="dropdown">
+                            <button onclick="myFunction2()" class="dropbtn" style="display: block;">Menu</button>
+                                <div id="myDropdown2" class="dropdown-content">
+                                    <a href="/npikem-menu-dite" style="display: block;">Menu e dites</a>
+                                    <a href="/npikem-menu-nate" style="display: block;">Menu e nates</a>
+                                </div>
+                          </div> 
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/reservations">Rezervime</a>
@@ -180,10 +186,11 @@
                                     <a href="/" style="display: block;">Shqip</a>
                                     <a href="/en" style="display: block;">English</a>
                                 </div>
-                          </div>
-                          
-                        
+                          </div> 
                     </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="/gallery">Galeria</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -211,7 +218,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="about-image">
-                        <img src="https://i.pinimg.com/736x/7e/64/cb/7e64cbb5f9f45b2dd42dfcf83eb516c9.jpg" alt="Restaurant Interior" class="img-fluid rounded shadow">
+                        <img src="/pictures/test/3.jpg" alt="Restaurant Interior" class="img-fluid rounded shadow">
                     </div>
                 </div>
             </div>
@@ -222,36 +229,36 @@
                     <div class="col-md-4 mb-4">
                         <div class="team-card">
                             <div class="team-image">
-                                <img src="https://i.pinimg.com/474x/ec/5d/43/ec5d43058b0122a499bfa6f99f6f2eb4.jpg" alt="Head Chef John Smith" class="img-fluid">
+                                <img src="/pictures/test/ekip2.jpg" alt="Head Chef John Smith" class="img-fluid">
                             </div>
                             <div class="team-info">
-                                <h3>John Smith</h3>
+                                <h3>Chefs</h3>
                                 <p class="position">Head Chef</p>
-                                <p style="color: black;">Me mbi 20 vjet përvojë në kuzhinë, Shefi John sjell kreativitet dhe ekspertizë në çdo pjatë.</p>
+                                <p style="color: black;">Me mbi 20 vjet përvojë në kuzhinë, Shefi jone sjell kreativitet dhe ekspertizë në çdo pjatë.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
                         <div class="team-card">
                             <div class="team-image">
-                                <img src="https://i.pinimg.com/736x/50/31/ab/5031ab7be5d551beb79b16fd76a8e757.jpg" alt="Restaurant Manager Sarah Johnson" class="img-fluid">
+                                <img src="/pictures/test/ekip3.jpg" alt="Restaurant Manager Sarah Johnson" class="img-fluid">
                             </div>
                             <div class="team-info">
-                                <h3>Sarah Johnson</h3>
+                                <h3>Hosters</h3>
                                 <p class="position">Restaurant Manager</p>
-                                <p style="color: black;">Sara sigurohet që çdo mysafir të marrë shërbim të jashtëzakonshëm dhe të largohet me një buzëqeshje.</p>
+                                <p style="color: black;">Stafi sigurohet që çdo mysafir të marrë shërbim të jashtëzakonshëm dhe të largohet me një buzëqeshje.</p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
                         <div class="team-card">
                             <div class="team-image">
-                                <img src="https://i.pinimg.com/474x/d8/34/71/d83471d9fed9383b593f45eef74c52a8.jpg" alt="Sommelier Michael Brown" class="img-fluid">
+                                <img src="/pictures/test/ekipi1.jpg" alt="Sommelier Michael Brown" class="img-fluid">
                             </div>
                             <div class="team-info">
-                                <h3>Michael Brown</h3>
+                                <h3>Stafi</h3>
                                 <p class="position">Sommelier</p>
-                                <p style="color: black;">Eksperti ynë i verës, Michael, i ndihmon mysafirët të gjejnë kombinimin perfekt për vaktin e tyre.</p>
+                                <p style="color: black;">Stafi ynë i mrekullueshëm, i ndihmon mysafirët të gjejnë kombinimin perfekt për vaktin e tyre.</p>
                             </div>
                         </div>
                     </div>
@@ -359,6 +366,9 @@
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
+       function myFunction2() {
+  document.getElementById("myDropdown2").classList.toggle("show");
+}
 // Close the dropdown if the user clicks outside of it
 window.onclick = function(event) {
   if (!event.target.matches('.dropbtn')) {
